@@ -21,9 +21,24 @@ The desktop source is open source. Publishing the source is separate from approv
 
 ## Install a desktop build
 
-When published, download the package for your operating system and CPU architecture from [GitHub Releases](https://github.com/TechyMS/phptinker/releases). If no package is available yet, build from source using the instructions below. On macOS, use `arm64` for Apple silicon and `x64` for Intel Macs. Open the DMG and copy PHP Tinker to Applications before launching it.
+You do not need to clone the repository or install Node.js to use a desktop build. Choose the installer for your operating system and CPU architecture:
 
-The locally generated development packages are unsigned. macOS and Windows may therefore warn before opening them. Public releases should be signed (and notarized on macOS) by the person publishing the release.
+**Download availability:** The first installer release has not been published yet. These links will work after a release with the matching assets is published and marked as the latest release. Public downloads also require the repository to be public. Until then, use the source-build instructions below; the links are not live downloads yet.
+
+| Your system | Installer | Direct download |
+| --- | --- | --- |
+| Mac Intel (`x64`) | DMG | [Download for Mac Intel](https://github.com/TechyMS/phptinker/releases/latest/download/PHP-Tinker-mac-intel.dmg) |
+| Mac Apple silicon (`arm64`, M-series) | DMG | [Download for Mac Apple silicon](https://github.com/TechyMS/phptinker/releases/latest/download/PHP-Tinker-mac-apple-silicon.dmg) |
+| Ubuntu / Debian (`amd64`, 64-bit Intel or AMD) | DEB | [Download for Ubuntu](https://github.com/TechyMS/phptinker/releases/latest/download/PHP-Tinker-ubuntu-amd64.deb) |
+| Windows (`x64`, 64-bit Intel or AMD) | EXE | [Download for Windows](https://github.com/TechyMS/phptinker/releases/latest/download/PHP-Tinker-windows-x64.exe) |
+
+For release notes, other package formats, and checksums, visit [GitHub Releases](https://github.com/TechyMS/phptinker/releases). Windows ARM and Linux ARM installers are not currently provided.
+
+- **macOS:** Open the DMG, copy PHP Tinker to Applications, and launch the copied app. To identify your Mac, open **Apple menu → About This Mac**: an Apple chip uses the Apple silicon download; an Intel processor uses the Intel download.
+- **Ubuntu / Debian:** Install the DEB with your system's package installer, then launch PHP Tinker from the applications menu. Ubuntu 24.04 is the Linux CI target; other distributions still need installer verification.
+- **Windows:** Open the EXE and follow the installation wizard.
+
+The current development packages are unsigned. macOS and Windows may therefore warn before opening them. Public releases should be signed (and notarized on macOS) by the person publishing the release. Only download packages from the project's own releases, and do not disable system security protections to install them.
 
 PHP Tinker needs a working PHP CLI for PHP tabs. On first launch it automatically checks:
 
@@ -115,6 +130,24 @@ npm run dist
 ```
 
 Artifacts are written to `release/`. The macOS configuration creates DMG and ZIP packages for Intel (`x64`) and Apple silicon (`arm64`). Windows and Linux packages should be produced and tested on their native operating systems.
+
+### Publish desktop downloads
+
+CI currently uploads installers as workflow artifacts; it does not publish a GitHub Release. To make the README download links available:
+
+1. Select installers from the successful CI run for the intended release source. Complete installer acceptance checks and signing/notarization before approving a public binary release.
+2. Rename copies of the installers to the following stable asset names. Do not rename an Intel installer as Apple silicon, or vice versa.
+
+   | Build output | Release asset name |
+   | --- | --- |
+   | macOS `x64` DMG | `PHP-Tinker-mac-intel.dmg` |
+   | macOS `arm64` DMG | `PHP-Tinker-mac-apple-silicon.dmg` |
+   | Linux `amd64` DEB | `PHP-Tinker-ubuntu-amd64.deb` |
+   | Windows `x64` EXE | `PHP-Tinker-windows-x64.exe` |
+
+3. Create a versioned GitHub Release, upload these files and a `SHA256SUMS.txt` file computed from the final uploaded filenames, and describe the version, supported platforms, signing status, and known limitations in its release notes. ZIP and AppImage packages can be uploaded as additional assets.
+4. Publish the release and mark it as the latest release. The repository must be public for users to download without repository access. A draft release does not make the links live.
+5. Verify all four README links from a signed-out browser and install the downloaded packages on the corresponding systems. Keep the same asset names in future latest releases so the README links continue to work.
 
 Build and distribution commands generate `THIRD_PARTY_NOTICES.txt` from the installed dependency license files. Packages include that notice file and the project's MIT `LICENSE`; Electron supplies its additional runtime licenses.
 
