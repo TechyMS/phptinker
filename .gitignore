@@ -1,0 +1,32 @@
+node_modules
+dist
+dist-electron
+smoke-dist
+release
+.DS_Store
+*.log
+
+# Local experiments and generated notices (regenerated before builds)
+/scratch/
+/THIRD_PARTY_NOTICES.txt
+
+# Credentials and personal/editor configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.mobileprovision
+id_rsa
+id_ed25519
+.idea/
+.vscode/
+.codex/
+.agents/
+
+# Local app state must never enter the source repository
+phptinker.json
+class-cache/
+retired-desktop-builds/

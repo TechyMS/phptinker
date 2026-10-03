@@ -1,0 +1,119 @@
+@import 'tailwindcss';
+
+:root {
+  /* Surface hierarchy — slightly deeper black with finer steps for depth */
+  --bg-primary: #161616;
+  --bg-secondary: #1d1d1d;
+  --bg-tertiary: #232323;
+
+  --bg-sidebar: #181818;
+  --bg-topbar: #1d1d1d;
+  --bg-statusbar: #161616;
+
+  /* Hairlines for component edges; --border kept for legacy callers */
+  --hairline: #262626;
+  --border: #2c2c2c;
+
+  --text-primary: #e8e8e8;
+  --text-secondary: #b8b8b8;
+  --text-faint: #757575;
+  --text-muted: var(--text-faint); /* legacy alias */
+
+  --hover: rgba(255, 255, 255, 0.045);
+  --selected: rgba(249, 115, 22, 0.08);
+  --focus-ring: rgba(249, 115, 22, 0.45);
+
+  --accent: #f97316;
+  --accent-hover: #fb923c;
+  --accent-soft: rgba(249, 115, 22, 0.14);
+
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+
+  --laravel: #ff2d20;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --mono: 'JetBrains Mono', 'Menlo', 'Consolas', ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, transform 140ms ease, border-color 140ms ease;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2e2e2e;
+  border-radius: 6px;
+  border: 2px solid var(--bg-primary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
+@keyframes phptinker-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+@keyframes phptinker-spin {
+  to { transform: rotate(360deg); }
+}
